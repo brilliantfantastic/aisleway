@@ -16,6 +16,63 @@ Aisleway also contains an API wrapper that can be used to serve up RESTful JSON 
 
 To interact with Aisleway, an Aisleway command line interface allows you to easily add products, check orders, check on customers, etc.
 
+### Entities
+
+All models in Aisleway are build from an `Aisleway::Model::Entity`. These allow an object to be identified by an `id` and defined by it's attributes. This module can be included on a PORO or a Rails model, etc.
+
+```ruby
+require 'aisleway/model'
+
+class Product
+  include Aisleway::Model::Entity
+  attributes = :name, :description
+end
+```
+
+When a class includes `Aisleway::Model::Entity`, it gets the following interface:
+
+* `#id`
+* `#initialize(attributes={})`
+
+If we expand the code above, it would look like the following:
+
+```ruby
+class Product
+  attr_reader :id
+  attr_accessor :name, :description
+
+  def initialize(attributes={})
+    @id, @name, @description = attributes.values_at :id, :name, :description
+  end
+end
+```
+
+### Repositories
+
+### ORM Adapters
+
+### Products
+
+In order to create a `Product` class with Aislway, you can simply include the Product modules.
+
+```ruby
+class Product
+  include Aislway::Model::Product
+end
+```
+
+### Orders
+
+### Cart
+
+### Customers
+
+### Coupons
+
+### Payment Gateways
+
+### Shipping
+
 ## Configuration
 
 ## Way of the Future
