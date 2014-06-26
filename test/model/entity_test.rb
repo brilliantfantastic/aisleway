@@ -7,6 +7,10 @@ describe Aisleway::Model::Entity do
     end
   end
 
+  it 'automatically gets an id attrribute reader defined' do
+    Widget.new.must_respond_to :id
+  end
+
   describe 'attributes' do
     let(:attributes) { [:attr_1, :attr_2] }
 

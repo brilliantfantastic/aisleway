@@ -3,6 +3,7 @@ module Aisleway
     module Entity
       def self.included(base)
         base.extend ClassMethods
+        base.send :attr_reader, :id
       end
 
       module ClassMethods
