@@ -10,6 +10,12 @@ module Aisleway
         def attributes=(*attributes)
           @attributes = attributes.flatten
 
+          class_eval %{
+            def initialize(attributes = {})
+              #{ @attributes.map {|a| "@#{a}" }.join(', ') }, = *attributes.values_at(#{ @attributes.map {|a| ":#{a}"}.join(', ') })
+            end
+          }
+
           attr_accessor *@attributes
         end
 

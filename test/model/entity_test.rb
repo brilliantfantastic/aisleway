@@ -33,5 +33,11 @@ describe Aisleway::Model::Entity do
       book.instance_variable_get(:@title).must_equal 'Helter Skelter'
       book.instance_variable_get(:@author).must_equal 'Vincent Bugliosi'
     end
+
+    it 'ignores unknown attributes' do
+      book = Book.new(rating: 77)
+
+      book.instance_variable_get(:@rating).must_be_nil
+    end
   end
 end
