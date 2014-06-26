@@ -1,10 +1,10 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aisleway/version'
+require 'aisleway/model/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'aisleway'
-  spec.version       = Aisleway::VERSION
+  spec.version       = Aisleway::Model::VERSION
   spec.authors       = ['Jamie Wright']
   spec.email         = ['jamie@brilliantfantastic.com']
   spec.summary       = %q{Component based services for building e-commerce functionality in Ruby}
