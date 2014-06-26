@@ -19,4 +19,19 @@ describe Aisleway::Model::Entity do
       Widget.attributes.must_equal attributes
     end
   end
+
+  describe '#initialize' do
+    before do
+      class Book
+        include Aisleway::Model::Entity
+        self.attributes = :title, :author
+      end
+    end
+
+    it 'accepts attributes' do
+      book = Book.new(title: 'Helter Skelter', author: 'Vincent Bugliosi')
+      book.instance_variable_get(:@title).must_equal 'Helter Skelter'
+      book.instance_variable_get(:@author).must_equal 'Vincent Bugliosi'
+    end
+  end
 end

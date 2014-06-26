@@ -17,6 +17,12 @@ module Aisleway
           @attributes
         end
       end
+
+      def initialize(attributes={})
+        attributes.each do |name, value|
+          public_send "#{name}=", value
+        end
+      end
     end
   end
 end
