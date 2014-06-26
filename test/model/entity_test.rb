@@ -5,6 +5,11 @@ describe Aisleway::Model::Entity do
     class Widget
       include Aisleway::Model::Entity
     end
+
+    class Book
+      include Aisleway::Model::Entity
+      self.attributes = :title, :author
+    end
   end
 
   it 'automatically gets an id attrribute reader defined' do
@@ -22,11 +27,6 @@ describe Aisleway::Model::Entity do
 
   describe '#initialize' do
     before do
-      class Book
-        include Aisleway::Model::Entity
-        self.attributes = :title, :author
-      end
-
       class GoodBook < Book
       end
 
@@ -66,6 +66,19 @@ describe Aisleway::Model::Entity do
 
     it 'raises an error when the given attributes don\'t correspond to a known accessor' do
       -> { Computer.new(flash_hard_drive: true) }.must_raise(NoMethodError)
+    end
+  end
+
+  describe 'accessors' do
+    it 'exposes getters for attributes' do
+      book = Book.new(title: 'The Hatchet')
+      book.title.must_equal 'The Hatchet'
+    end
+
+    it 'exposes setters for attributes' do
+      book = Book.new
+      book.title = 'A Tale of Two Cities'
+      book.title.must_equal 'A Tale of Two Cities'
     end
   end
 end
