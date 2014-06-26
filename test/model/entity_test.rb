@@ -29,6 +29,11 @@ describe Aisleway::Model::Entity do
 
       class GoodBook < Book
       end
+
+      class Computer
+        include Aisleway::Model::Entity
+        attr_accessor :hard_drive_size
+      end
     end
 
     it 'accepts attributes' do
@@ -47,6 +52,20 @@ describe Aisleway::Model::Entity do
       book = GoodBook.new(title: 'No Easy Day', author: 'Mark Owen')
       book.instance_variable_get(:@title).must_equal 'No Easy Day'
       book.instance_variable_get(:@author).must_equal 'Mark Owen'
+    end
+
+    it 'can initialize without any attributes' do
+      computer = Computer.new
+      computer.hard_drive_size.must_be_nil
+    end
+
+    it 'can initialize with attributes outside of Aisleway' do
+      computer = Computer.new(hard_drive_size: '32g')
+      computer.hard_drive_size.must_equal '32g'
+    end
+
+    it 'raises an error when the given attributes don\'t correspond to a known accessor' do
+      -> { Computer.new(flash_hard_drive: true) }.must_raise(NoMethodError)
     end
   end
 end
