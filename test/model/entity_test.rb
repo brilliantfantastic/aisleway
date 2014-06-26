@@ -26,6 +26,9 @@ describe Aisleway::Model::Entity do
         include Aisleway::Model::Entity
         self.attributes = :title, :author
       end
+
+      class GoodBook < Book
+      end
     end
 
     it 'accepts attributes' do
@@ -38,6 +41,12 @@ describe Aisleway::Model::Entity do
       book = Book.new(rating: 77)
 
       book.instance_variable_get(:@rating).must_be_nil
+    end
+
+    it 'accepts attributes for a sub-class' do
+      book = GoodBook.new(title: 'No Easy Day', author: 'Mark Owen')
+      book.instance_variable_get(:@title).must_equal 'No Easy Day'
+      book.instance_variable_get(:@author).must_equal 'Mark Owen'
     end
   end
 end
