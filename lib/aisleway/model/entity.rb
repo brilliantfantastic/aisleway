@@ -3,12 +3,12 @@ module Aisleway
     module Entity
       def self.included(base)
         base.extend ClassMethods
-        base.send :attr_reader, :id
+        base.send :attr_accessor, :id
       end
 
       module ClassMethods
         def attributes=(*attributes)
-          @attributes = attributes.flatten
+          @attributes = attributes.flatten.uniq
 
           class_eval %{
             def initialize(attributes = {})
@@ -28,6 +28,11 @@ module Aisleway
         attributes.each do |name, value|
           public_send "#{name}=", value
         end
+      end
+
+      def ==(other)
+        self.class == other.class &&
+          self.id == other.id
       end
     end
   end
